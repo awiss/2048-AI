@@ -1,0 +1,1 @@
+$('#start-ai').click(startAI);
