@@ -1,18 +1,28 @@
-function Grid(size) {
+function Grid(size, grid) {
   this.size = size;
 
   this.cells = [];
 
-  this.build();
+  this.build(grid);
 }
 
 // Build a grid of the specified size
-Grid.prototype.build = function () {
+Grid.prototype.build = function (grid) {
   for (var x = 0; x < this.size; x++) {
     var row = this.cells[x] = [];
 
     for (var y = 0; y < this.size; y++) {
-      row.push(null);
+      if (grid) {
+        tile = grid.cells[x][y];
+        if (tile) {
+          row.push(new Tile(tile,tile.value));
+        } else {
+          row.push(null);
+        }       
+      } else {
+        row.push(null);
+      }
+      
     }
   }
 };
@@ -82,3 +92,17 @@ Grid.prototype.withinBounds = function (position) {
   return position.x >= 0 && position.x < this.size &&
          position.y >= 0 && position.y < this.size;
 };
+
+Grid.prototype.print = function() {
+  for (var i = 0; i < this.size; i++) {
+    var printArr = [];
+    for (var j = 0; j < this.size; j++){
+      if(this.cells[j][i] == null){
+        printArr.push('-');
+      } else {
+        printArr.push(this.cells[j][i].value);
+      }
+    }
+    console.log(printArr.join(' | '));
+  }
+}

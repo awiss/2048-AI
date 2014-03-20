@@ -1,1 +1,1 @@
-$('#start-ai').click(startAI);
+$('#start-ai').click(doMoves);
